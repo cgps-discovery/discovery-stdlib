@@ -14,7 +14,7 @@ Text to be printed in the process of saving results to file
 prewords_dict_to_gzjson = "Saving results"
 
 """
-s
+Extension of jsongz file
 """
 jsongz_extension = ".json.gz"
 
