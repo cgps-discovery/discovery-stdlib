@@ -7,7 +7,7 @@ import FastaValidator
 from urllib.parse import urlparse
 from datetime import datetime
 from pathlib import Path
-from text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name
+from .text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name
 
 
 def printer(input_str):

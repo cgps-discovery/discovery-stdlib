@@ -2,9 +2,9 @@ import os
 import boto3
 import requests
 import botocore
-from util import printer, test_fasta, gunzip_if_zipped
 from urllib.parse import urlparse
-from text import prewords_upload_s3, prewords_download_s3_fasta, download_fasta_name
+from .util import printer, test_fasta, gunzip_if_zipped
+from .text import prewords_upload_s3, prewords_download_s3_fasta, download_fasta_name
 
 
 def get_secrets():
