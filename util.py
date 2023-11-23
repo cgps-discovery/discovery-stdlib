@@ -115,7 +115,7 @@ def get_upload_path(base, fileid, extension):
     return os.path.join(base,fileid[:2],fileid+extension)
 
 
-def get_(fileid,task,task_version,stdlib_version,task_results):
+def define_json_result(fileid,task,task_version,stdlib_version,task_results):
     """
     Gets final result json to be printed
     :param fileid: name of the file analysed
