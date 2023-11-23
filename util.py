@@ -113,3 +113,17 @@ def get_upload_path(base, fileid, extension):
     """
 
     return os.path.join(base,fileid[:2],fileid+extension)
+
+
+def get_(fileid,task,task_version,stdlib_version,task_results):
+    """
+    Gets final result json to be printed
+    :param fileid: name of the file analysed
+    :param task: name of the analysis
+    :param task_version: version of the analysis
+    :param stdlib_version: version of the utility stdlib used
+    :param results: the results of the analysis
+    :return: the json string
+    """
+
+    return {'fileId':fileid,'task':task,'task_version':task_version,'stdlib_version':stdlib_version,'results':task_results}
