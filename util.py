@@ -3,6 +3,7 @@ import sys
 import gzip
 import json
 import shutil
+import hashlib
 import FastaValidator
 from urllib.parse import urlparse
 from datetime import datetime
@@ -129,7 +130,9 @@ def define_json_result(fileid,task,task_version,stdlib_version,task_results):
 
 def stdin_to_fasta(working_dir,is_verbose):
     """
-    
+
+    :param working_dir:
+    :param is_verbose:
     """
     
     PRE_WORDS = prewords_save_fasta
@@ -143,3 +146,13 @@ def stdin_to_fasta(working_dir,is_verbose):
         fasta.write(line)
     
     return test_fasta( save_path )
+
+
+def sha1sum(file_path):
+    """
+
+    :param
+    """
+
+    with open(file_path, 'rb', buffering=0) as f:
+        return hashlib.file_digest(f, 'sha256').hexdigest()
