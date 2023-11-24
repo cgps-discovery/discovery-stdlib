@@ -3,9 +3,9 @@ import boto3
 import requests
 import botocore
 from urllib.parse import urlparse
-from .util import printer, test_fasta, gunzip_if_zipped
-from .text import prewords_upload_s3, prewords_download_s3_fasta, download_fasta_name
 
+from .text import prewords_upload_s3, prewords_download_s3_fasta, download_fasta_name
+from .util import printer, test_fasta, gunzip_if_zipped
 
 def get_secrets():
     """

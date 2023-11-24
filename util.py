@@ -8,8 +8,7 @@ import FastaValidator
 from urllib.parse import urlparse
 from datetime import datetime
 from pathlib import Path
-from .text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name, download_fasta_name, prewords_save_fasta
-from .do_lib import download_s3_fasta
+from .text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name
 
 def printer(input_str):
     """
@@ -129,26 +128,6 @@ def define_json_result(fileid,task,task_version,stdlib_version,task_results):
 
     return {'fileId':fileid,'task':task,'task_version':task_version,'stdlib_version':stdlib_version,'results':task_results}
 
-def stdin_to_fasta(working_dir,is_verbose):
-    """
-    Takes text passed in as stdin and saves it to file
-    :param working_dir: working directory
-    :param is_verbose: True if verbose
-    :return: path to saved file
-    """
-    
-    PRE_WORDS = prewords_save_fasta
-
-    if is_verbose: printer(PRE_WORDS)
-
-    save_path = os.path.join( working_dir, download_fasta_name )
-    fasta = open(save_path, "w")
-
-    for line in sys.stdin:
-        fasta.write(line)
-    
-    return test_fasta( save_path )
-
 
 def sha1sum(file_path):
     """
@@ -164,23 +143,3 @@ def sha1sum(file_path):
             sha1.update(data)
             data = input.read(2**16)
     return sha1.hexdigest()
-
-
-
-def evaluate_fasta_input (fasta_s3_path,working_dir,is_verbose):
-    """
-    Evaluates if the fasta_s3_path is given. If given then download fasta from s3,
-    otherwise save stdin to file
-    :param fasta_s3_path: provided path to s3 fasta
-    :param working_dir: working directory
-    :return: id of file to be evaluated and path to fasta file 
-    """
-    
-    if fasta_s3_path is None:
-        fasta_path = stdin_to_fasta(working_dir,is_verbose)
-        fileid = sha1sum(fasta_path)
-    else:
-        fileid = get_fileid(fasta_s3_path, is_verbose)
-        fasta_path = download_s3_fasta(fasta_s3_path, working_dir, is_verbose)
-    
-    return (fileid, fasta_path)
