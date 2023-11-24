@@ -150,9 +150,14 @@ def stdin_to_fasta(working_dir,is_verbose):
 
 def sha1sum(file_path):
     """
-
+    
     :param
     """
 
-    with open(file_path, 'rb', buffering=0) as f:
-        return hashlib.file_digest(f, 'sha256').hexdigest()
+    sha1 = hashlib.sha1()
+    with open(file_path, 'rb') as input:
+        data = input.read(2**16)
+        while len(data) != 0:
+            sha1.update(data)
+            data = input.read(2**16)
+    return sha1.hexdigest()
