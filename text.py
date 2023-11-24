@@ -32,3 +32,8 @@ gunzipped_fasta_name = "sequence.fasta"
 Name of downloaded fasta file
 """
 download_fasta_name = "sequence.fa"
+
+"""
+Text to be printed in the process of saving results to file
+"""
+prewords_save_fasta = "Saving stdin fasta to file"

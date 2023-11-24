@@ -7,8 +7,7 @@ import FastaValidator
 from urllib.parse import urlparse
 from datetime import datetime
 from pathlib import Path
-from .text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name
-
+from .text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name, download_fasta_name, prewords_save_fasta
 
 def printer(input_str):
     """
@@ -127,3 +126,20 @@ def define_json_result(fileid,task,task_version,stdlib_version,task_results):
     """
 
     return {'fileId':fileid,'task':task,'task_version':task_version,'stdlib_version':stdlib_version,'results':task_results}
+
+def stdin_to_fasta(working_dir,is_verbose):
+    """
+    
+    """
+    
+    PRE_WORDS = prewords_save_fasta
+
+    if is_verbose: printer(PRE_WORDS)
+
+    save_path = os.path.join( working_dir, download_fasta_name )
+    fasta = open(save_path, "w")
+
+    for line in sys.stdin:
+        fasta.write(line)
+    
+    return test_fasta( save_path )
