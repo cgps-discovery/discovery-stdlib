@@ -10,16 +10,17 @@ from datetime import datetime
 from pathlib import Path
 from .text import prewords_dict_to_gzjson, temp_jsongz_name, gunzipped_fasta_name
 
+
 def printer(input_str):
     """
-    Prints string with leading green-coloured date and time
+    Prints string with leading green-coloured date and time to stderr
     :param input_str: string to be added a prefix
     """
     
     now = datetime.now()
     now_str =  now.strftime("%Y-%m-%d %H:%M:%S")
 
-    print( "\033[92m \033[1m "+now_str+" \033[0m "+input_str )
+    print("\033[92m \033[1m "+now_str+" \033[0m "+input_str, file=sys.stderr)
 
 
 def test_fasta(file_path):
