@@ -18,6 +18,12 @@ def stdin_to_fasta(working_dir,is_verbose):
     if is_verbose: printer(PRE_WORDS)
 
     save_path = os.path.join( working_dir, download_fasta_name )
+
+    try:
+        os.mkdir(working_dir)
+    except Exception as e:
+        pass
+
     fasta = open(save_path, "w")
 
     for line in sys.stdin:
