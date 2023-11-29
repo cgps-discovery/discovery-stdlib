@@ -48,7 +48,7 @@ def is_gz_file(filepath):
         return test_f.read(2) == b'\x1f\x8b'
 
     
-def gunzip_if_zipped(fasta_download, working_dir):
+def gunzip_if_zipped(fasta_download, working_dir, gunzipped_fasta_name=gunzipped_fasta_name):
     """
     If file is gzipped it returns gunzipped file
     :param fasta_download: path to downloaded fasta
@@ -82,7 +82,7 @@ def get_fileid(url, is_verbose):
     return key
 
 
-def dict_to_gzjson(r_dict, working_dir, is_verbose):
+def dict_to_gzjson(r_dict, working_dir, is_verbose, temp_jsongz_name=temp_jsongz_name):
     """
     Saves dictionary containing results as gzipped json
     :param r_dict: Dictionary to be recorded as json
@@ -92,11 +92,11 @@ def dict_to_gzjson(r_dict, working_dir, is_verbose):
     """
 
     PRE_WORDS = prewords_dict_to_gzjson
-    TEMP_JSONGZ_NAME = temp_jsongz_name
+    
 
     if is_verbose: printer(PRE_WORDS)
 
-    file_path = os.path.join(working_dir, TEMP_JSONGZ_NAME)
+    file_path = os.path.join(working_dir, temp_jsongz_name)
 
     with gzip.open(file_path, 'wt') as f:
         json.dump(r_dict, f)
