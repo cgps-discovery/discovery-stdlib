@@ -32,7 +32,7 @@ def test_fasta(file_path):
     
     if FastaValidator.fasta_validator(file_path) != 0:
         file_path = None
-        print('[ERROR] File not in FASTA format', file=sys.stderr)
+        raise Exception('File not in FASTA format')
         
     return file_path
 

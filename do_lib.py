@@ -78,7 +78,8 @@ def download_s3_fasta(s3_path, working_dir, is_verbose):
     try:
         os.mkdir(working_dir)
     except Exception as e:
-        pass
+        printer("Error creating working directory: {}".format(e))
+        raise e
 
     # Parse url to get secret url
     region, endpoint, bucket, key = parse_url(s3_path)
