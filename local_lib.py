@@ -22,8 +22,9 @@ def stdin_to_fasta(working_dir,is_verbose):
     try:
         os.mkdir(working_dir)
     except Exception as e:
-        printer("Error creating working directory: {}".format(e))
-        raise e
+        #printer("Error creating working directory: {}".format(e))
+        #raise e
+        pass
 
     fasta = open(save_path, "w")
 
