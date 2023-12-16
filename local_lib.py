@@ -45,9 +45,11 @@ def evaluate_fasta_input (fasta_s3_path,working_dir,is_verbose):
     
     if fasta_s3_path is None:
         fasta_path = stdin_to_fasta(working_dir,is_verbose)
-        fileid = sha1sum(fasta_path)
+        #fileid = sha1sum(fasta_path)
     else:
-        fileid = get_fileid(fasta_s3_path, is_verbose)
+        #fileid = get_fileid(fasta_s3_path, is_verbose)
         fasta_path = download_s3_fasta(fasta_s3_path, working_dir, is_verbose)
     
+    fileid = sha1sum(fasta_path)
+
     return (fileid, fasta_path)

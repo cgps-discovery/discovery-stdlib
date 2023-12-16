@@ -29,8 +29,10 @@ def parse_url(url):
     parsed_url = urlparse(url)
     scheme = parsed_url.scheme
     netloc = parsed_url.netloc.split(".")
-    bucket, region = netloc[0], netloc[1]
-    endpoint = scheme+"://"+region+"."+netloc[2]+"."+netloc[3]
+    bucket, region = netloc[0], netloc[-3]
+    endpoint = ".".join(netloc[1:])
+    endpoint = scheme+"://"+endpoint
+    
     key = parsed_url.path[1:]
     return region, endpoint, bucket, key
 
