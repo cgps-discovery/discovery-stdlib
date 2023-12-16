@@ -59,6 +59,7 @@ def upload_s3(s3_path,file,content_type,is_verbose):
     # Upload file to private url
     try:
         client.upload_file(file,bucket,key,ExtraArgs=extra_args)
+        if is_verbose: printer("Saved to:{}".format(s3_path))
     except Exception as e:
         return e
 
