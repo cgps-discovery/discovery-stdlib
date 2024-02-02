@@ -4,7 +4,7 @@ import requests
 import botocore
 from urllib.parse import urlparse
 
-from .text import prewords_upload_s3, prewords_download_s3_fasta, download_fasta_name
+from .text import prewords_upload_s3, prewords_download_s3_fasta, download_fasta_name, prewords_download_s3_fastq
 from .util import printer, test_fasta, gunzip_if_zipped
 
 def get_secrets():
@@ -62,6 +62,40 @@ def upload_s3(s3_path,file,content_type,is_verbose):
         if is_verbose: printer("Saved to:{}".format(s3_path))
     except Exception as e:
         return e
+
+
+def download_s3_fastq(s3_path, download_fastq_name, working_dir, is_verbose):
+    """
+    Downloads gzipped assembly
+    :param s3_path: url to file to be downloaded
+    :working_dir: directory to save download
+    :return: path to downloaded fastq
+    """
+
+    PRE_WORDS = prewords_download_s3_fastq
+
+    if is_verbose: printer(PRE_WORDS)
+    
+    download_path = os.path.join(working_dir, download_fastq_name)
+
+    try:
+        os.mkdir(working_dir)
+    except Exception as e:
+        #printer("Error creating working directory: {}".format(e))
+        #raise e
+        pass
+
+    # Parse url to get secret url
+    region, endpoint, bucket, key = parse_url(s3_path)
+
+    # Get secret url                                                                                                      
+    secret_url = get_presigned_url(get_do_client(region, endpoint),bucket,key,'get_object')    
+
+    # Download using secret url
+    r = requests.get(secret_url, allow_redirects=True)
+    open(download_path, 'wb').write(r.content)
+    
+    return os.path.join(download_path, working_dir)
 
 
 def download_s3_fasta(s3_path, working_dir, is_verbose):

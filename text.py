@@ -6,9 +6,11 @@ Text to be printed in the upload process
 prewords_upload_s3 = "Uploading results to digital ocean"
 
 """
-Text to be printed in the fasta download process
+Text to be printed in the fastq download process
 """
 prewords_download_s3_fasta = "Downloading FASTA assembly"
+
+prewords_download_s3_fastq = "Downloading FASTQ"
 
 """
 Text to be printed in the process of saving results to file
