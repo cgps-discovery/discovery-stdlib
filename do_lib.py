@@ -77,7 +77,7 @@ def download_s3_fastq(s3_path, download_fastq_name, working_dir, is_verbose):
     if is_verbose: printer(PRE_WORDS)
     
     download_path = os.path.join(working_dir, download_fastq_name)
-
+    print("download_path", download_path)
     try:
         os.mkdir(working_dir)
     except Exception as e:
@@ -91,11 +91,13 @@ def download_s3_fastq(s3_path, download_fastq_name, working_dir, is_verbose):
     # Get secret url                                                                                                      
     secret_url = get_presigned_url(get_do_client(region, endpoint),bucket,key,'get_object')    
 
+    #print(region, endpoint, bucket, key, secret_url)
+    
     # Download using secret url
     r = requests.get(secret_url, allow_redirects=True)
     open(download_path, 'wb').write(r.content)
-    
-    return os.path.join(download_path, working_dir)
+
+    return download_path
 
 
 def download_s3_fasta(s3_path, working_dir, is_verbose):
@@ -130,6 +132,7 @@ def download_s3_fasta(s3_path, working_dir, is_verbose):
     open(download_path, 'wb').write(r.content)
     
     return test_fasta( gunzip_if_zipped(download_path, working_dir) )
+
 
 
 def get_presigned_url(client,bucket,url, object):

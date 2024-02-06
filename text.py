@@ -10,6 +10,9 @@ Text to be printed in the fastq download process
 """
 prewords_download_s3_fasta = "Downloading FASTA assembly"
 
+"""
+Text to be printed in the fastq download process
+"""
 prewords_download_s3_fastq = "Downloading FASTQ"
 
 """
